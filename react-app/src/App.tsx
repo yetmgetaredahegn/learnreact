@@ -1,18 +1,14 @@
 import { useState } from 'react';
-import produce from 'immer';
+import NavBar from './components/NavBar';
+import Cart from './components/Cart';
 
 function App() {
-  const [bugs,setBugs] = useState([
-    {id:1,name:'bug1', fixed:false},
-    {id:2,name:'bug2',fixed:false}]);
-
-  const handleClick = () => {
-    setBugs(bugs.map(bug=>bug.id===1 ? {...bug,fixed:true}:bug));
-  };
+  const [cartItems,setCartItems] = useState(['Product1', 'Product2']);
 
   return (
     <div>
-      <button onClick={handleClick}>Click</button>
+      <NavBar cartItemsCount={cartItems.length}></NavBar>
+      <Cart cartItems={cartItems} onClear={()=>setCartItems([])}></Cart>
     </div>
   );
 }
