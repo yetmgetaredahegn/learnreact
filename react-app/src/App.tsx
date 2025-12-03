@@ -1,19 +1,13 @@
 import { useState } from 'react';
-import Form from './components/Form.tsx';
+import produce from 'immer';
 
 function App() {
-  const [tags,setTags] = useState(['happy','cheerful']);
+  const [bugs,setBugs] = useState([
+    {id:1,name:'bug1', fixed:false},
+    {id:2,name:'bug2',fixed:false}]);
 
   const handleClick = () => {
-    // add
-    setTags([...tags,'excited']);
-    // remove
-    setTags(tags.filter(tag => tag !== 'happy'));
-    // update
-    setTags(tags.map(tag => tag === 'cheerful' ? 'joyful' : tag));
-    console.log(tags);
-
-    
+    setBugs(bugs.map(bug=>bug.id===1 ? {...bug,fixed:true}:bug));
   };
 
   return (
