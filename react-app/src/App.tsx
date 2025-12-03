@@ -2,21 +2,18 @@ import { useState } from 'react';
 import Form from './components/Form.tsx';
 
 function App() {
-  const [customer,setCustomer] = useState({
-    name:'Yetu',
-    address: {
-      city: 'Addis Ababa',
-      zipCode: 1000
-    }
-  })
+  const [tags,setTags] = useState(['happy','cheerful']);
 
   const handleClick = () => {
-    setCustomer({
-      ...customer,
-      address: { 
-        ...customer.address, 
-        zipCode: 2000 
-      }});
+    // add
+    setTags([...tags,'excited']);
+    // remove
+    setTags(tags.filter(tag => tag !== 'happy'));
+    // update
+    setTags(tags.map(tag => tag === 'cheerful' ? 'joyful' : tag));
+    console.log(tags);
+
+    
   };
 
   return (
