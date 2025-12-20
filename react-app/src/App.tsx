@@ -12,16 +12,21 @@ interface User {
 function App() {
   const [users, setUsers] = useState<User[]>([]);
   const [error, setError] = useState('')
+  const [isLoading,setLoading] = useState(false)
 
   useEffect(() => {
     const controller = new AbortController();
+    setLoading(true)
     axios
       .get<User[]>('https://jsonplaceholder.typicode.com/users', { signal: controller.signal })
-      .then(res => setUsers(res.data))
-      .catch((err: unknown) => {
+      .then(res => {
+        setUsers(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
         if (err instanceof CanceledError) return;
-        if (err instanceof Error) setError(err.message);
-        else setError(String(err));
+        setError(err.message);
+        setLoading(false);
       });
 
     return () => {
